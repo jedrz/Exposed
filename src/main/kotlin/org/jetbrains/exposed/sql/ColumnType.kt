@@ -142,6 +142,10 @@ class EnumerationColumnType<T:Enum<T>>(val klass: Class<T>): ColumnType() {
     }
 }
 
+class EnumerationAsStringColumnType<T:Enum<T>>(val klass: Class<T>, val length: Int = 65535, val collate: String? = null): ColumnType() {
+
+}
+
 class DateColumnType(val time: Boolean): ColumnType() {
     override fun sqlType(): String  = if (time) currentDialect.dateTimeType() else "DATE"
 

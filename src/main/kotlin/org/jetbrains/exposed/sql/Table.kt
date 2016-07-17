@@ -186,7 +186,13 @@ open class Table(name: String = ""): ColumnSet(), DdlAware {
         primaryConstructor!!.callBy(primaryConstructor!!.parameters.map { it to allParams[it.name] }.toMap())
     }
 
-    fun <T:Enum<T>> enumeration(name: String, klass: Class<T>) : Column<T>  = registerColumn(name, EnumerationColumnType(klass))
+    fun <T:Enum<T>> enumeration(name: String, klass: Class<T>) : Column<T> = registerColumn(name, EnumerationColumnType(klass))
+
+    fun <T:Enum<T>> enumerationAsText(name: String, klass: Class<T>) : Column<T> =
+            registerColumn(name, EnumerationColumnType(klass))
+
+    fun <T:Enum<T>> enumerationAsVarchar(name: String, klass: Class<T>, length: Int, collate: String? = null) : Column<T> =
+            registerColumn(name, EnumerationColumnType(klass, length, collate))
 
     fun integer(name: String): Column<Int> = registerColumn(name, IntegerColumnType())
 
